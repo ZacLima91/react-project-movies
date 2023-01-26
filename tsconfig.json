@@ -21,6 +21,6 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src", "png", "jpg", "jpeg", "gif", "webp", "svg", "ico",
   ]
 }
