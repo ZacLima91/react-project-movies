@@ -1,6 +1,6 @@
 export type Users = {
   id?: string;
-  image: string;
+  
 };
 
 export type Movie = {
@@ -17,3 +17,18 @@ export type Category = {
   movie: string| undefined;
   serie: string | undefined;
 };
+
+export interface IResponse<T>{
+  data: T,
+  status: number,
+}
+
+export interface IAxios {
+  <T>(url: string, data?: any): Promise<IResponse<T>>,
+  <T>(url: string, config?: any): Promise<IResponse<T>>,
+}
+
+export type Login={
+  email: string,
+  password: string,
+}

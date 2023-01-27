@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { ModalLogin } from "../modal-login/ModalLogin";
 import "./header.scss";
 const logo = require("../../assets/logo/logo.png");
 
@@ -27,6 +28,8 @@ export function Header() {
     };
   }, []);
 
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <div ref={headerRef} className="header">
       <div className="header__wrap container">
@@ -41,8 +44,12 @@ export function Header() {
           <li>
             <Link to="/movies">Filmes</Link>
           </li>
+          <li>
+            <a onClick={()=>setIsOpen(true)}>Login</a>
+          </li>
         </ul>
       </div>
+      <ModalLogin isOpen={isOpen} setIsOpen={setIsOpen}/>
     </div>
   );
 }
