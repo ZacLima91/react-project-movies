@@ -1,26 +1,34 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosHeaders } from "axios";
 import swal from "sweetalert";
-import { IAxios, Login, Movie } from "./types";
+import { Login, Movie } from "./types";
 
-axios.defaults.baseURL = "https://api-movies-g3b3tyk6o-zaclima91.vercel.app";
+axios.defaults.baseURL = "http://localhost:3333";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-const defaultUrl = "https://api-movies-g3b3tyk6o-zaclima91.vercel.app";
-
-const instance: AxiosInstance & IAxios = axios.create()
-
-instance.interceptors.request.use(
-  (config)=>{
-    const token = localStorage.getItem('token')
-    if(token){
-      config.headers.Authorization = `Bearer ${token}`
-    }
+axios.interceptors.request.use(
+  async (config) => {
+    const access_token = localStorage.getItem("access_token");
+    if (config.headers)
+      (config.headers as AxiosHeaders).set(
+        "Authorization",
+        `Bearer ${access_token}`
+      );
     return config;
   },
-  (error)=>{
-    return Promise.reject(error)
+  (error) => Promise.reject(error)
+);
+
+axios.interceptors.response.use(
+  function (config) {
+    return config;
+  },
+  function (error) {
+    if (error.response.status === 401) {
+      if (localStorage.getItem("access_token"))
+        localStorage.removeItem("access_token");
+    }
   }
-)
+);
 
 function handleError(text: string, description: string) {
   swal({
@@ -39,7 +47,7 @@ export const category = {
 export const api = {
   getMovies: async (): Promise<Movie[] | undefined> => {
     try {
-      const response = await axios.get(`${defaultUrl}/movies`);
+      const response = await axios.get(`/movies`);
       return response.data;
     } catch (err: any) {
       handleError("Erro no servidor!", "Erro no servidor, tente novamente!");
@@ -48,23 +56,22 @@ export const api = {
 
   getMovieId: async (id: string | undefined): Promise<Movie | undefined> => {
     try {
-      const response = await axios.get(`${defaultUrl}/movies/${id}`);
+      const response = await axios.get(`/movies/${id}`);
       return response.data;
     } catch (err: any) {
       handleError("Erro no servidor!", "Erro no servidor, tente novamente!");
     }
   },
 
-  login: async ({email, password}: Login)=>{
-    try{
-      const response = await axios.post("/login", {email, password})
-      console.log(response.data)
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem("user", JSON.stringify(response.data.user))
+  login: async ({ email, password }: Login) => {
+    try {
+      const response = await axios.post("/login", { email, password });
+      localStorage.setItem("access_token", response.data.access_token);
+      console.log(response.data);
 
-      return response.data
-    }catch(err){
-      console.log(err)
+      return response.data;
+    } catch (err) {
+      console.log(err);
     }
-  }
+  },
 };

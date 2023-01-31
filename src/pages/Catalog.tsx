@@ -8,7 +8,7 @@ export function Catalog() {
 
   return (
     <>
-      <PageHeader>{category === cate.movie ? "Movies" : "Series"}</PageHeader>
+      <PageHeader>{category === cate.movie ? "Movies" : "Movies"}</PageHeader>
       <div className="container">
         <div className="section mb-3">
           <MovieGrid category={category} />
