@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../../api/api";
 import "./header.scss";
 const logo = require("../../assets/logo/logo.png");
 
@@ -27,7 +28,9 @@ export function Header() {
     };
   }, []);
 
-  const [isOpen, setIsOpen] = useState(false)
+  const logout = async()=>{
+    await api.logout()
+  }
 
   return (
     <div ref={headerRef} className="header">
@@ -42,6 +45,9 @@ export function Header() {
           </li>
           <li>
             <Link to="/movies">Filmes</Link>
+          </li>
+          <li>
+            <Link onClick={logout} to="/">Sair</Link>
           </li>
         </ul> 
       </div>

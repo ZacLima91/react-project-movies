@@ -25,13 +25,18 @@ export const FormLogin = (props: ModalProps) => {
     display: string;
   }
 
-  
-  
-  const statusMenu = ()=>{
-    const headerMenu:HTMLElement= document.querySelector("header__nav")!;
-    headerMenu.style.display = "none"
-  }
-  
+  const openMenu = (status: boolean) => {
+    const headerMenu: HTMLElement = document.querySelector(".header__nav")!;
+    if (status) {
+      headerMenu.style.display = "flex";
+    } else {
+      headerMenu.style.display = "none";
+    }
+  };
+
+  useEffect(() => {
+    openMenu(false);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -59,7 +64,7 @@ export const FormLogin = (props: ModalProps) => {
       setError(true);
       return;
     }
-    statusMenu()
+    openMenu(true);
     navigate("/home");
   }
 

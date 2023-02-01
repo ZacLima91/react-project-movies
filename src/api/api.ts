@@ -2,16 +2,16 @@ import axios, { AxiosHeaders } from "axios";
 import swal from "sweetalert";
 import { Login, Movie } from "./types";
 
-axios.defaults.baseURL = "http://localhost:3333";
-axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.baseURL = "https://api-movies-alpha.vercel.app";
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 axios.interceptors.request.use(
   async (config) => {
-    const access_token = localStorage.getItem("access_token");
+    const token = localStorage.getItem("token");
     if (config.headers)
       (config.headers as AxiosHeaders).set(
         "Authorization",
-        `Bearer ${access_token}`
+        `Bearer ${token}`
       );
     return config;
   },
@@ -24,8 +24,8 @@ axios.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 401) {
-      if (localStorage.getItem("access_token"))
-        localStorage.removeItem("access_token");
+      if (localStorage.getItem("token"))
+        localStorage.removeItem("token");
     }
   }
 );
@@ -66,12 +66,23 @@ export const api = {
   login: async ({ email, password }: Login) => {
     try {
       const response = await axios.post("/login", { email, password });
-      localStorage.setItem("access_token", response.data.access_token);
+      localStorage.setItem("token", response.data.access_token);
       console.log(response.data);
 
       return response.data;
     } catch (err) {
-      console.log(err);
+      handleError('Erro', 'Senha ou email incorreto!')
     }
   },
+
+  logout: async()=>{
+    try{
+      localStorage.removeItem("token")
+      localStorage.removeItem("access_token")
+      localStorage.removeItem("user")
+    }catch(err){
+      handleError('Erro', 'Aconteceu algun erro, tente novamente')
+    }
+  }
 };
+
