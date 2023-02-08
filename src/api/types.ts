@@ -1,10 +1,9 @@
 export type Users = {
   id?: string;
-  
 };
 
 export type Movie = {
-  id: string;
+  id?: string;
   name: string;
   description: string;
   imgUrl: string;
@@ -13,22 +12,24 @@ export type Movie = {
   year: number;
 };
 
+
+
 export type Category = {
-  movie: string| undefined;
+  movie: string | undefined;
   serie: string | undefined;
 };
 
-export interface IResponse<T>{
-  data: T,
-  status: number,
+export interface IResponse<T> {
+  data: T;
+  status: number;
 }
 
 export interface IAxios {
-  <T>(url: string, data?: any): Promise<IResponse<T>>,
-  <T>(url: string, config?: any): Promise<IResponse<T>>,
+  <T>(url: string, data?: any): Promise<IResponse<T>>;
+  <T>(url: string, config?: any): Promise<IResponse<T>>;
 }
 
-export type Login={
-  email: string,
-  password: string,
-}
+export type Login = {
+  email: string;
+  password: string;
+};

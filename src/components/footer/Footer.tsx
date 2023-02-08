@@ -16,9 +16,9 @@ export function Footer() {
         </div>
         <div className="footer__content__menus">
             <div className="footer__content__menu">
-                <Link to="/">Home</Link>
-                <Link to="/">Contato</Link>
-                <Link to="/">Sobre</Link>
+                <Link to="/home">Home</Link>
+                <Link to="/home">Contato</Link>
+                <Link to="/home">Sobre</Link>
             </div>
         </div>
       </div>

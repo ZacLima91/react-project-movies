@@ -20,12 +20,9 @@ export const Iframe = (props: Props) => {
       <div className="video__title">
         <h2>Trailer</h2>
       </div>
-      <iframe
-        src={item?.trailer}
-        ref={iframeRef}
-        width="60%"
-        title="video"
-      ></iframe>
+      <div className="iframe-content">
+        <iframe src={item?.trailer} ref={iframeRef} title="video"></iframe>
+      </div>
     </div>
   );
 };

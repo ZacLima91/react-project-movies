@@ -1,14 +1,26 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../api/api";
+import { Movie } from "../api/types";
 import { OutlineButton } from "../components/button/Button";
 import { HeroSlide } from "../components/hero-slide/HeroSlide";
+import { NewMovieModal } from "../components/modals-options/modal-create/NewMovieModal";
 import { MovieList } from "../components/movie-list/MovieList";
 
 export function Home() {
-  const [openModalTrailer, setOpenModalTrailer] = useState(false);
+  const [item, setItem] = useState<Movie[] | undefined>();
+
+  useEffect(() => {
+    const getDetails = async () => {
+      const response = await api.getMovies();
+      setItem(response);
+    };
+    getDetails();
+  }, []);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleClick: MouseEventHandler<HTMLSpanElement> = () => {
-    setOpenModalTrailer(!openModalTrailer);
+    setOpenModal(!openModal);
   };
   return (
     <>
@@ -17,14 +29,14 @@ export function Home() {
         <div className="section mb-3">
           <div className="section__header mb-2">
             <h2>Trending Movies</h2>
-            <Link to="/movie">
-              <OutlineButton onClick={handleClick} className="" >View more</OutlineButton>
-            </Link>
+            <OutlineButton onClick={handleClick} className="">
+              Adicionar Filme
+            </OutlineButton>
           </div>
-          <MovieList/>
+          <MovieList />
         </div>
-        
       </div>
+      {openModal && <NewMovieModal handleClose={handleClick} />}
     </>
   );
 }

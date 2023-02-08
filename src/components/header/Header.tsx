@@ -37,7 +37,7 @@ export function Header() {
       <div className="header__wrap container">
         <div className="logo">
           <img src={logo} alt="" />
-          <Link to="/">WorldMovies</Link>
+          <Link to="/home">WorldMovies</Link>
         </div>
         <ul className="header__nav">
           <li>

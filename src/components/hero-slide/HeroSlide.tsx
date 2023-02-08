@@ -2,10 +2,6 @@ import {
   useState,
   useEffect,
   useRef,
-  IframeHTMLAttributes,
-  DetailedHTMLProps,
-  LegacyRef,
-  RefObject,
   MouseEventHandler,
 } from "react";
 
@@ -16,7 +12,7 @@ import { Movie } from "../../api/types";
 import { OutlineButton } from "../button/Button";
 
 import "./hero-slide.scss";
-import { Modal, ModalContent } from "../modal/Modal";
+import { Modal, ModalContent } from "../modal-hero-slide/Modal";
 
 type Props = {
   item: Movie;
@@ -46,7 +42,7 @@ export const HeroSlide = () => {
         grabCursor={true}
         spaceBetween={0}
         slidesPerView={1}
-        autoplay={{ delay: 3000 }}
+        autoplay={{ delay: 5000 }}
       >
         {movieItems?.map((item, i) => (
           <SwiperSlide key={i}>
