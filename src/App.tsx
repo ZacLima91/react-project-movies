@@ -7,6 +7,7 @@ import { Catalog } from "./pages/Catalog";
 import { Detail } from "./pages/details/Detail";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/login/Login";
+import { UserName } from "./pages/user/User";
 
 function App() {
   return (
@@ -14,11 +15,12 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Login/>}/>;
+          <Route path="/" element={<Login />} />;
           <Route path="/:category/search/:keyword" element={<Catalog />} />
           <Route path="/:category/:id" element={<Detail />} />
           <Route path="/:category" element={<Catalog />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/user" element={<UserName />} />
         </Routes>
         <Footer />
       </BrowserRouter>

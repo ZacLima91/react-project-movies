@@ -15,8 +15,6 @@ type PropsEdit = {
   year: number | undefined;
 };
 
-
-
 export const EditModal = (props: PropsEdit) => {
   const { id } = useParams();
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -31,8 +29,8 @@ export const EditModal = (props: PropsEdit) => {
     };
 
     if (id) {
-      const pokemonResponse = await api.editMovie(id,newMovie);
-      console.log(pokemonResponse)
+      const pokemonResponse = await api.editMovie(id, newMovie);
+      console.log(pokemonResponse);
       props.handleClose();
       window.location.reload();
     }
@@ -44,40 +42,70 @@ export const EditModal = (props: PropsEdit) => {
         className="modal-edit__content"
         style={{ backgroundImage: `url(${bg})` }}
       >
-        <div className="modal-edit__title">
+        <div className="modal-edit__content__title">
           <h1>Editar</h1>
           <span onClick={props.handleClose}>X</span>
         </div>
-        <div className="modal-edit__form">
+        <div className="modal-edit__content__form">
           <form onSubmit={handleSubmit}>
             <div className="inputs">
-              <label>Filme:</label> 
-              <input type="text" name="nameMovie" defaultValue={props.name} required />
+              <label>Filme:</label>
+              <input
+                type="text"
+                name="nameMovie"
+                defaultValue={props.name}
+                required
+              />
             </div>
 
             <div className="inputs">
               <label>Descrição:</label>
-              <input type="text" name="description" defaultValue={props.description} required />
+              <input
+                type="text"
+                name="description"
+                defaultValue={props.description}
+                required
+              />
             </div>
 
             <div className="inputs">
               <label>Url da image:</label>
-              <input type="text" name="imgUrl" defaultValue={props.imgUrl} required />
+              <input
+                type="text"
+                name="imgUrl"
+                defaultValue={props.imgUrl}
+                required
+              />
             </div>
 
             <div className="inputs">
               <label>Url da image fullscreen :</label>
-              <input type="text" name="imgFullScreen" defaultValue={props.imgFullScreen} required />
+              <input
+                type="text"
+                name="imgFullScreen"
+                defaultValue={props.imgFullScreen}
+                required
+              />
             </div>
 
             <div className="inputs">
               <label>Url do trailer:</label>
-              <input type="text" name="trailer" defaultValue={props.trailer} required />
+              <input
+                type="text"
+                name="trailer"
+                defaultValue={props.trailer}
+                required
+              />
             </div>
 
             <div className="inputs">
               <label>Ano:</label>
-              <input type="number" name="year" defaultValue={props.year} required />
+              <input
+                type="number"
+                name="year"
+                defaultValue={props.year}
+                required
+              />
             </div>
 
             <div className="inputs">

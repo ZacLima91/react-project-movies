@@ -1,0 +1,102 @@
+@use "../../scss/" as *;
+
+.container-user {
+  margin-top: 7rem;
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    position: absolute;
+    right: 0;
+    margin-right: 3rem;
+    font-size: 2rem;
+    transition: 1s;
+    cursor: pointer;
+    :hover {
+      color: green;
+      transform: scale(1.1);
+    }
+  }
+
+  &__profile {
+    width: 40%;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .profile-img {
+      display: flex;
+      flex-direction: column;
+      height: 14rem;
+      img {
+        width: 8rem;
+        border-radius: 50%;
+      }
+
+      input {
+        height: 2rem;
+      }
+    }
+  }
+
+  &__content {
+    width: 60%;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      margin: 1rem;
+    }
+  }
+}
+
+.container-btn {
+  width: 100%;
+  display: flex;
+  margin: 3rem 0;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    cursor: pointer;
+    font-family: $font-family;
+  }
+
+  .btn {
+    border: 4px solid transparent;
+    background-color: $main-color;
+    color: $white;
+    border-radius: $border-radius;
+    padding: 0.5rem 1.8rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    box-shadow: 0px 0px 7px 8px #ff00004d;
+    transition: box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  .btn:hover {
+    box-shadow: 0px 0px 7px 15px #ff00004d;
+  }
+
+  svg{
+    position: absolute;
+    font-size: 2rem;
+    right: 0;
+    margin-right: 3rem;
+    cursor: pointer;
+
+    :hover{
+      transform: scale(1.1);
+      color: #ff00004d;
+    }
+  }
+}
+
+.closeInput {
+  display: none;
+}

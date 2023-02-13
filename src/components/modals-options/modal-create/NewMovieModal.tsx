@@ -28,16 +28,16 @@ export const NewMovieModal = (props: PropsCreate) => {
   }
 
   return (
-    <div className="modal-edit">
+    <div className="modal-create">
       <div
-        className="modal-edit__content"
+        className="modal-create__content"
         style={{ backgroundImage: `url(${bg})` }}
       >
-        <div className="modal-edit__title">
+        <div className="modal-create__title">
           <h1>Criar Filme</h1>
           <span onClick={props.handleClose}>X</span>
         </div>
-        <div className="modal-edit__form">
+        <div className="modal-create__form">
           <form onSubmit={handleSubmit}>
             <div className="inputs">
               <label>Filme:</label>

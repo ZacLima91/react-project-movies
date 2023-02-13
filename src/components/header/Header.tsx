@@ -1,11 +1,21 @@
-import { useEffect, useRef } from "react";
+import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../../api/api";
+import { RxGear } from "react-icons/rx";
 import "./header.scss";
+import { User } from "../../api/types";
+import { ModalGear } from "../modals-options/modal-gear/ModalGear";
 const logo = require("../../assets/logo/logo.png");
 
 export function Header() {
+ 
+  const [open, setOpen] = useState(false);
   const headerRef = useRef<HTMLInputElement>(null);
+
+
+  const handleClick: MouseEventHandler<SVGElement | HTMLAnchorElement> = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     const shrinkHeader = () => {
@@ -28,9 +38,12 @@ export function Header() {
     };
   }, []);
 
-  const logout = async()=>{
-    await api.logout()
-  }
+  console.log('ta aki')
+
+  const logout = async () => {
+    setOpen(!open);
+    await api.logout();
+  };
 
   return (
     <div ref={headerRef} className="header">
@@ -47,9 +60,12 @@ export function Header() {
             <Link to="/movies">Filmes</Link>
           </li>
           <li>
-            <Link onClick={logout} to="/">Sair</Link>
+            <RxGear onClick={handleClick} className={"gear"} />
           </li>
-        </ul> 
+        </ul>
+        {open && (
+          <ModalGear logout={logout} handleClick={handleClick}/>
+        )}
       </div>
     </div>
   );

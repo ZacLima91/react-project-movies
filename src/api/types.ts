@@ -12,6 +12,14 @@ export type Movie = {
   year: number;
 };
 
+export type User = {
+  id?: string;
+  userName: string;
+  img: string;
+  email: string;
+  password?: string;
+}
+
 
 
 export type Category = {

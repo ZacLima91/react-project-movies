@@ -1,8 +1,8 @@
 import axios, { AxiosHeaders } from "axios";
 import swal from "sweetalert";
-import { Login, Movie } from "./types";
+import { Login, Movie, User } from "./types";
 
-axios.defaults.baseURL = "https://api-movies-alpha.vercel.app/";
+axios.defaults.baseURL = "http://localhost:3333/";
 axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 
 axios.interceptors.request.use(
@@ -50,12 +50,11 @@ function handleSuccess(text: string, description: string) {
 }
 
 export const api = {
-
-  createMovie: async (movie: Movie)=>{
-    try{
-      const response = await axios.post(`/movies`, movie)
+  createMovie: async (movie: Movie) => {
+    try {
+      const response = await axios.post(`/movies`, movie);
       handleSuccess("Sucesso!", "Filme Criado.");
-    }catch (err: any) {
+    } catch (err: any) {
       handleError("Erro no servidor!", "Erro no servidor, tente novamente!");
     }
   },
@@ -78,9 +77,9 @@ export const api = {
     }
   },
 
-  editMovie: async (id: string,movie: Movie)=> {
+  editMovie: async (id: string, movie: Movie) => {
     try {
-      await axios.patch("/movies/" +id, movie);
+      await axios.patch("/movies/" + id, movie);
       handleSuccess("Sucesso!", "Filme editado.");
     } catch (err: any) {
       handleError("Erro no servidor!", "Erro no servidor, tente novamente!");
@@ -100,8 +99,8 @@ export const api = {
     try {
       const response = await axios.post("/login", { email, password });
       localStorage.setItem("token", response.data.access_token);
-      localStorage.setItem("user", response.data.user)
-      console.log(response.data);
+      localStorage.setItem("user", response.data.userName.id);
+      console.log(localStorage.getItem("user"));
 
       return response.data;
     } catch (err) {
@@ -116,6 +115,43 @@ export const api = {
       localStorage.removeItem("user");
     } catch (err) {
       handleError("Erro", "Aconteceu algun erro, tente novamente");
+    }
+  },
+
+  createUser: async (user: User) => {
+    try {
+      const response = await axios.post("/users", user);
+      handleSuccess("Sucesso!", "Usuário Criado.");
+    } catch (err: any) {
+      handleError("Erro no servidor!", "Erro no servidor, tente novamente!");
+    }
+  },
+
+  getUserId: async () => {
+    try {
+      const response = await axios.get(
+        "/users/" + localStorage.getItem("user")
+      );
+      return response.data;
+    } catch (err) {
+      handleError("Erro", "Aconteceu algun erro, tente novamente");
+    }
+  },
+
+  getEditUser: async (id: string, updatedUser: User) => {
+    try {
+      const response = await axios.patch("/users/" + id, updatedUser);
+    } catch (err) {
+      handleError("Erro", "Aconteceu algun erro, tente novamente");
+    }
+  },
+
+  deleteUser: async (id: string | undefined) => {
+    try {
+      await axios.delete("/users/" + id);
+      handleSuccess("Sucesso!", "Usuário deletado.");
+    } catch (err: any) {
+      handleError("Erro ao deletar usuário", err.message);
     }
   },
 };
