@@ -2,7 +2,7 @@ import axios, { AxiosHeaders } from "axios";
 import swal from "sweetalert";
 import { Login, Movie, User } from "./types";
 
-axios.defaults.baseURL = "http://localhost:3333/";
+axios.defaults.baseURL = "https://api-movies-alpha.vercel.app/";
 axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 
 axios.interceptors.request.use(
@@ -120,8 +120,8 @@ export const api = {
 
   createUser: async (user: User) => {
     try {
-      const response = await axios.post("/users", user);
-      handleSuccess("Sucesso!", "Usuário Criado.");
+      const response = await axios.post(`/users`, user);
+      handleSuccess("Sucesso!", "Usuario Criado.");
     } catch (err: any) {
       handleError("Erro no servidor!", "Erro no servidor, tente novamente!");
     }
