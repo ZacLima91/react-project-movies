@@ -2,7 +2,7 @@ import axios, { AxiosHeaders } from "axios";
 import swal from "sweetalert";
 import { Login, Movie, User } from "./types";
 
-axios.defaults.baseURL = "https://api-movies-alpha.vercel.app/";
+axios.defaults.baseURL = "https://api-movies-estxt59qn-zaclima9s-projects.vercel.app/";
 axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 
 axios.interceptors.request.use(
